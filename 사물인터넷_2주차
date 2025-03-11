@@ -1,0 +1,43 @@
+#define TRIG 13
+#define ECHO 12
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+}
+
+void loop()
+{
+  long duration, distance;
+  
+  digitalWrite(TRIG,LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG,LOW);
+  
+  duration = pulseIn(ECHO,HIGH);
+  distance = duration /58.2;
+    
+  Serial.print(distance);
+  Serial.println(" cm");
+  delay(1000);
+  
+  if(distance>=100){
+  digitalWrite(6, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s)
+  digitalWrite(6, LOW);
+  delay(1000); // Wait for 1000 millisecond(s)
+  }
+  else{
+  digitalWrite(7, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s)
+  digitalWrite(7, LOW);
+  delay(1000); // Wait for 1000 millisecond(s)
+  }
+  
+}
